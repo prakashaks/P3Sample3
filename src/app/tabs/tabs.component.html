@@ -1,4 +1,86 @@
-  <!-- <mat-card>
+ <mat-card>
+    <mat-tab-group>
+        <mat-tab label="DAILY">
+            <form class="form" name="startEndDatesForm " [formGroup]="startEndDatesForm" fxFlex="100" >
+            <div fxLayout="column "  fxFlex="100"  fxFlexOffset="10"> 
+                <div fxLayout="row"   fxFlex="100" fxLayout.sm="column" fxLayout.xs="column" style="padding-top: 15px;margin-top: 3px;" >
+                    <div fxLayout="row "  fxFlex="" fxLayoutGap="10"  fxLayoutAlign="start center" fxFlex.lt.md="">
+                        <mat-form-field  appearance="outline">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker"  formControlName="startDate"
+                            [value]="date.value"
+                               (dateInput)="addStartEvent('input', $event)" 
+                               (dateChange)="addStartEvent('change', $event)"required>
+                            <mat-error *ngIf="startEndDatesForm.invalid">{{getstart_dateErrorMessage()}}</mat-error>
+                            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                         </mat-form-field>
+                    </div>
+                <div fxLayout="row" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" fxLayoutGap="10" fxLayoutAlign="start center" style="margin-bottom: 15px;">
+                    <label>Date</label>
+                        <input class="every_input" value="1" type="number">
+                        <label>of</label>
+                </div>
+
+                <div fxLayout="row" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" fxLayoutGap="10" fxLayoutAlign="start center"  >
+              
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select</mat-label>
+                        <mat-select   [formControl]="selectForm" required>
+                          <mat-option *ngFor="let selections of selection" [value]="selections.value">
+                            {{selections.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="startEndDatesForm.invalid">{{getselectErrorMessage()}}</mat-error>
+                    </mat-form-field>
+
+                </div>
+
+
+                    <mat-form-field fxLayout="row" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" *ngIf="selectForm.value === '0'"  fxLayoutGap="10" appearance="outline" >
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="picker1"
+                         formControlName="endDate"
+                         [min]="endMinDate"  
+                        (dateInput)="addEndEvent('input', $event)" 
+                        (dateChange)="addEndEvent('change', $event)"
+                          required>
+                        <mat-error *ngIf="startEndDatesForm.invalid">{{getend_dateErrorMessage()}}</mat-error>
+                        <mat-datepicker-toggle matPrefix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxLayout="row" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" *ngIf="selectForm.value === '1'"  fxLayoutGap="10" appearance="outline" >
+                        <input matInput class="every_input" value="1" type="number"
+                        min="0"
+                         formControlName="occurences" required>
+                        <mat-error *ngIf="startEndDatesForm.invalid">{{getoccErrorMessage()}}</mat-error>
+                        <label>Occurances</label>
+                    </mat-form-field>
+                
+            </div>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <button mat-raised-button  type="submit"  [disabled]="startEndDatesForm.invalid" (click)="generateDaily()" color="primary">Submit</button>
+                </div>
+            </div>
+       
+         <!--  [disabled]="StartEnddateForm.invalid" --> 
+        </form>
+        </mat-tab>
+        <mat-tab label="WEEKLY"> Content 2 </mat-tab>
+        <mat-tab label="MONTHLY"> Content 3 </mat-tab>
+        <mat-tab label="QUARTERLY"> Content 4 </mat-tab>
+        <mat-tab label="ONE TIME"> Content 5</mat-tab>
+      </mat-tab-group>
+</mat-card>
+
+
+
+
+
+
+
+<!-- <mat-card>
     <mat-card-header class="card-header" fxLayout="row" >
         <div fxFlex="50"fxLayoutAlign="start center">
             <mat-card-title fxLayoutAlign=" center">Set a Frequency</mat-card-title>
@@ -401,83 +483,6 @@
 
 
 
-<mat-card>
-    <mat-tab-group>
-        <mat-tab label="First">
-            <form class="form" name="startEndDatesForm " [formGroup]="startEndDatesForm" fxFlex="100" >
-            <div fxLayout="column "  fxFlex="100"  fxFlexOffset="10"> 
-                <div fxLayout="row"   fxFlex="100" fxLayout.sm="column" fxLayout.xs="column" >
-                    <div fxLayout="row "  fxFlex="" fxLayoutGap="10"  fxLayoutAlign="start center" fxFlex.lt.md="">
-                        <mat-form-field style="padding-top: 15px;margin-top:3px;" appearance="outline">
-                            <mat-label>Start Date</mat-label>
-                            <input matInput [matDatepicker]="picker"  formControlName="startDate"
-                            [value]="date.value"
-                               (dateInput)="addStartEvent('input', $event)" 
-                               (dateChange)="addStartEvent('change', $event)"required>
-                            <mat-error *ngIf="startEndDatesForm.invalid">{{getstart_dateErrorMessage()}}</mat-error>
-                            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                         </mat-form-field>
-                    </div>
-                <div fxLayout="row wrap" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" fxLayoutGap="10" fxLayoutAlign="start center" style="padding-top: 15px;margin-top: 3px;" >
-                    <label>Date</label>
-                        <input class="every_input" value="1" type="number">
-                        <label>of</label>
-                </div>
-
-                <div fxLayout="row wrap" fxFlex="" fxFlex.lt.md="" fxFlex.gt-sm="" fxLayoutGap="10" fxLayoutAlign="start center" style="padding-top: 15px;margin-top: 3px;" >
-              
-                    <mat-form-field appearance="outline">
-                        <mat-label>Select</mat-label>
-                        <mat-select   [formControl]="selectForm" required>
-                          <mat-option *ngFor="let selections of selection" [value]="selections.value">
-                            {{selections.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="startEndDatesForm.invalid">{{getselectErrorMessage()}}</mat-error>
-                    </mat-form-field>
-
-                </div>
-
-
-                    <mat-form-field *ngIf="selectForm.value === '0'"  fxLayoutGap="10" appearance="outline" style="padding-top: 15px;margin-top: 3px;">
-                        <mat-label>End Date</mat-label>
-                        <input matInput [matDatepicker]="picker1"
-                         
-                         formControlName="endDate"
-                         [min]="endMinDate"  
-                        (dateInput)="addEndEvent('input', $event)" 
-                        (dateChange)="addEndEvent('change', $event)"
-                          required>
-                        <mat-error *ngIf="startEndDatesForm.invalid">{{getend_dateErrorMessage()}}</mat-error>
-                        <mat-datepicker-toggle matPrefix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field *ngIf="selectForm.value === '1'"  fxLayoutGap="10" appearance="outline" style="padding-top: 15px;margin-top: 3px;">
-                        <input matInput class="every_input" value="1" type="number"
-                        min="0"
-                         
-                         formControlName="occurence" required>
-                        <mat-error *ngIf="startEndDatesForm.invalid">{{getoccErrorMessage()}}</mat-error>
-                        <label>Occurances</label>
-                    </mat-form-field>
-                
-            </div>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                    <button mat-raised-button  type="submit"  [disabled]="startEndDatesForm.invalid" (click)="generateDaily()" color="primary">Submit</button>
-                </div>
-            </div>
-       
-         <!--  [disabled]="StartEnddateForm.invalid" --> 
-        </form>
-        </mat-tab>
-        <mat-tab label="Second"> Content 2 </mat-tab>
-        <mat-tab label="Third"> Content 3 </mat-tab>
-        <mat-tab label="Second"> Content 2 </mat-tab>
-        <mat-tab label="Second"> Content 2 </mat-tab>
-      </mat-tab-group>
-</mat-card>
 
 
 
